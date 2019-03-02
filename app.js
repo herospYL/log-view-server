@@ -1,16 +1,17 @@
-var app = require('koa')()
-  , logger = require('koa-logger')
-  , json = require('koa-json')
-  , views = require('koa-views')
-  , onerror = require('koa-onerror');
+const app = require('koa')()
+    , logger = require('koa-logger')
+    , json = require('koa-json')
+    , views = require('koa-views')
+    , onerror = require('koa-onerror');
 
-var index = require('./routes/index');
-var users = require('./routes/users');
+//  Notice that the app is immediately constructed after imported
+const index = require('./routes/index');
+const users = require('./routes/users');
 
 // error handler
 onerror(app);
 
-// global middlewares
+// global middleware
 app.use(views('views', {
   root: __dirname + '/views',
   default: 'jade'
