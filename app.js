@@ -1,41 +1,36 @@
-const app = require('koa')()
-    , logger = require('koa-logger')
-    , json = require('koa-json')
-    , views = require('koa-views')
-    , onerror = require('koa-onerror');
+const Koa = require('koa');
+const logger = require('koa-logger');
+// const views = require('koa-views');
+const parser = require('koa-bodyparser');
+const staticFile = require('koa-static');
+
+const app = new Koa();
 
 //  Notice that the app is immediately constructed after imported
 const index = require('./routes/index');
-const users = require('./routes/users');
-
-// error handler
-onerror(app);
 
 // global middleware
-app.use(views('views', {
-  root: __dirname + '/views',
-  default: 'jade'
-}));
-app.use(require('koa-bodyparser')());
-app.use(json());
+// app.use(views('views', {
+//   root: `${__dirname}/views`,
+//   default: 'jade'
+// }));
+app.use(parser());
 app.use(logger());
+app.use(staticFile((`${__dirname}/public`)));
 
-app.use(function *(next){
-  var start = new Date;
-  yield next;
-  var ms = new Date - start;
-  console.log('%s %s - %s', this.method, this.url, ms);
+app.use(async(ctx, next) => {
+  const start = Date.now();
+  await next();
+  const ms = Date.now() - start;
+  ctx.set('X-Response-Time', `${ms}ms`);
 });
 
-app.use(require('koa-static')(__dirname + '/public'));
-
 // routes definition
-app.use(index.routes(), index.allowedMethods());
-app.use(users.routes(), users.allowedMethods());
+app.use(index.routes()).use(index.allowedMethods());
 
 // error-handling
 app.on('error', (err, ctx) => {
-  console.error('server error', err, ctx)
+  console.error('server error', err, ctx);
 });
 
 module.exports = app;
