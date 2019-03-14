@@ -1,0 +1,16 @@
+[
+  {
+    "id": "123",
+    "name": "Log 1",
+    "author": "John",
+    "time": "2018-12-17T03:24:00Z",
+    "detail": "First log"
+  },
+  {
+    "id": "456",
+    "name": "Log 2",
+    "author": "Mary",
+    "time": "2018-12-17T04:24:00Z",
+    "detail": "Second log"
+  }
+]
