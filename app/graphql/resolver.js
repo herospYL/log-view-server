@@ -4,10 +4,10 @@ const testMethods = require('../../test/sampleData/sampleLogsReturn');
 const resolvers = {
   Query: {
     logs: () => testMethods.logs(),
-    logById: id => testMethods.logById(id),
-    logByType: type => testMethods.logByType(type),
-    logByAuthor: author => testMethods.logByAuthor(author),
-    logByTime: time => testMethods.logByTime(time)
+    logById: (root, args) => testMethods.logById(args),
+    logByType: (root, args) => testMethods.logByType(args),
+    logByAuthor: (root, args) => testMethods.logByAuthor(args),
+    logByTime: (root, args) => testMethods.logByTime(args)
   }
 };
 

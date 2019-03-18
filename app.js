@@ -1,10 +1,18 @@
 const Koa = require('koa');
+const { ApolloServer } = require('apollo-server-koa');
 const logger = require('koa-logger');
 // const views = require('koa-views');
 const parser = require('koa-bodyparser');
 const staticFile = require('koa-static');
 
+const typeDefs = require('./app/graphql/typeDef');
+const resolvers = require('./app/graphql/resolver');
+
 const app = new Koa();
+const server = new ApolloServer({
+  typeDefs,
+  resolvers
+});
 
 //  Notice that the app is immediately constructed after imported
 const index = require('./routes/index');
@@ -32,5 +40,7 @@ app.use(index.routes()).use(index.allowedMethods());
 app.on('error', (err, ctx) => {
   console.error('server error', err, ctx);
 });
+
+server.applyMiddleware({ app });
 
 module.exports = app;
