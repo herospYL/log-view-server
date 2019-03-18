@@ -1,14 +1,18 @@
 [
   {
-    "id": "123",
+    "logId": "123",
+    "instanceId": "0",
     "name": "Log 1",
+    "type": "POST",
     "author": "John",
     "time": "2018-12-17T03:24:00Z",
     "detail": "First log"
   },
   {
-    "id": "456",
+    "logId": "456",
+    "instanceId": "1",
     "name": "Log 2",
+    "type": "POST",
     "author": "Mary",
     "time": "2018-12-17T04:24:00Z",
     "detail": "Second log"
